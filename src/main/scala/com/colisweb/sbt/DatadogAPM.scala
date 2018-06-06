@@ -1,10 +1,10 @@
 package com.colisweb.sbt
 
 import com.typesafe.sbt.SbtNativePackager._
-import com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport.{bashScriptExtraDefines, _}
+import com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport.bashScriptExtraDefines
 import com.typesafe.sbt.packager.archetypes.scripts.{BashStartScriptPlugin, BatStartScriptPlugin}
 import sbt.Keys._
-import sbt.{Def, _}
+import sbt._
 import sbt.librarymanagement.DependencyFilter
 
 /**
