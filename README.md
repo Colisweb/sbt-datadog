@@ -18,6 +18,8 @@ Installation
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
+resolvers += Resolver.bintrayRepo("colisweb", "sbt-plugins")
+
 addSbtPlugin("com.colisweb.sbt" % "sbt-datadog" % "0.1.0")
 ```
 
