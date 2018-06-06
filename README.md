@@ -19,7 +19,7 @@ Installation
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("com.gilt.sbt" % "sbt-datadog" % "0.1.0")
+addSbtPlugin("com.colisweb.sbt" % "sbt-datadog" % "0.1.0")
 ```
 
 To enable the Datadog APM for your project, add the `DatadogAPM` auto-plugin to your project.
