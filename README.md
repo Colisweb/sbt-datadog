@@ -32,11 +32,44 @@ enablePlugins(DatadogAPM)
 Configuration
 -------------
 
+#### `datadogVersion`
+
 To use a specific Datadog Java APM Agent version, add the following to your `build.sbt` file:
 
 ```scala
 datadogVersion := "0.9.0"
 ```
 
+#### `datadogServiceName`
+
+By default, the agent will use the sbt project `name` value as `service.name`. 
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogServiceName := "another name"
+```
+
+You can use your **host** (where you code run) enviroment variables in the value:  
+
+```scala
+datadogServiceName := "another name ${MY_HOST_ENV_VAR}"
+```
+
+#### `datadogAgentHost`
+
+By default, the agent `agent.host` value is `localhost`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogAgentHost = "127.0.0.1"
+```
+
+You can use your **host** (where you code run) enviroment variables in the value:  
+
+```scala
+datadogServiceName := "${MY_DD_HOST_IP}"
+```
 
 For more configuration option, look at the Datadog Java APM agent documentation: https://docs.datadoghq.com/tracing/setup/java/
