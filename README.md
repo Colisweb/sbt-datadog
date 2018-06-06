@@ -63,7 +63,7 @@ By default, the agent `agent.host` value is `localhost`.
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogAgentHost = "127.0.0.1"
+datadogAgentHost := "127.0.0.1"
 ```
 
 You can use your **host** (where you code run) enviroment variables in the value:  
