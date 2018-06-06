@@ -14,3 +14,17 @@ homepage := Some(url("https://github.com/colisweb/sbt-datadog"))
 bintrayOrganization := Some("colisweb")
 bintrayReleaseOnPublish := true
 publishMavenStyle := true
+pomExtra := (
+  <scm>
+    <connection>scm:git@github.com:colisweb/sbt-datadog.git</connection>
+    <developerConnection>scm:git@github.com:colisweb/sbt-datadog.git</developerConnection>
+    <url>https://github.com/colisweb/sbt-datadog</url>
+  </scm>
+    <developers>
+      <developer>
+        <id>guizmaii</id>
+        <name>Jules Ivanic</name>
+        <url>https://www.colisweb.com</url>
+      </developer>
+    </developers>
+)
