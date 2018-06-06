@@ -14,4 +14,3 @@ homepage := Some(url("https://github.com/colisweb/sbt-datadog"))
 bintrayOrganization := Some("colisweb")
 bintrayReleaseOnPublish := false
 publishMavenStyle := false
-
