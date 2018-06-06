@@ -13,6 +13,6 @@ credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
 licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 homepage := Some(url("https://github.com/colisweb/sbt-datadog"))
 bintrayOrganization := Some("colisweb")
-bintrayReleaseOnPublish := true
+bintrayReleaseOnPublish := false
 publishMavenStyle := false
 
