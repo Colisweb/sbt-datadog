@@ -19,8 +19,6 @@ object DatadogAPM extends AutoPlugin {
       "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name")
     lazy val datadogAgentHost = taskKey[String](
       """Hostname for where to send traces to. If using a containerized environment, configure this to be the host ip. See our docker docs for additional detail. Default value: "localhost"""")
-    lazy val datadogEnablePlayInstrumentation =
-      taskKey[Boolean]("""Enable the beta instrumentation of Play 2.4-2.6 project. Default value: false""")
   }
   import autoImport._
 
@@ -34,26 +32,12 @@ object DatadogAPM extends AutoPlugin {
     datagodJavaAgent := findDatadogJavaAgent(update.value),
     datadogServiceName := name.value,
     datadogAgentHost := "localhost",
-    datadogEnablePlayInstrumentation := false,
     libraryDependencies += "com.datadoghq"          % "dd-java-agent" % datadogVersion.value % DatadogConfig,
     mappings in Universal += datagodJavaAgent.value -> "datadog/dd-java-agent.jar",
-    bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar""",
+    bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.service.name=${datadogServiceName.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.agent.host=${datadogAgentHost.value}"""",
-  ) ++ playInstrumentation
-
-  //
-
-  /**
-    * https://docs.datadoghq.com/tracing/setup/java/#beta-instrumentation
-    */
-  private[this] val playInstrumentation: Seq[Def.Setting[Task[Seq[String]]]] =
-    if (datadogEnablePlayInstrumentation.value)
-      Seq(
-        bashScriptExtraDefines += """addJava "-Ddd.integration.java_concurrent.enabled=true"""",
-        bashScriptExtraDefines += """addJava "-Ddd.integration.play.enabled=true""""
-      )
-    else Seq.empty
+  )
 
   private[this] def findDatadogJavaAgent(report: UpdateReport) = report.matching(datadogFilter).head
 
