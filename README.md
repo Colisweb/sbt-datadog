@@ -72,4 +72,6 @@ You can use your **host** (where you code run) enviroment variables in the value
 datadogServiceName := "${MY_DD_HOST_IP}"
 ```
 
+#### Other possible settings
+
 For more configuration option, look at the Datadog Java APM agent documentation: https://docs.datadoghq.com/tracing/setup/java/
