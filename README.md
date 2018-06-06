@@ -1,5 +1,7 @@
 # sbt-datadog
 
+[ ![Download](https://api.bintray.com/packages/colisweb/sbt-plugins/sbt-datadog/images/download.svg) ](https://bintray.com/colisweb/sbt-plugins/sbt-datadog/_latestVersion)
+
 This project is highly inspired by (actually, copied from) the fantastic [sbt-newrelic](https://github.com/gilt/sbt-newrelic) project.
 
 We want to thanks [Gilt](http://tech.gilt.com) for their work on `sbt-newrelic` that permits us to create this project really quickly.
