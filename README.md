@@ -3,7 +3,6 @@
 This project is highly inspired by (actually, copied from) the fantastic [sbt-newrelic](https://github.com/gilt/sbt-newrelic) project.
 
 We want to thanks [Gilt](http://tech.gilt.com) for their work on `sbt-newrelic` that permits us to create this project really quickly.
-(The longuest part was the sbt <-> Bintray configuration 😄)
 
 Prerequisites
 -------------
