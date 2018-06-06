@@ -14,18 +14,5 @@ licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 homepage := Some(url("https://github.com/colisweb/sbt-datadog"))
 bintrayOrganization := Some("colisweb")
 bintrayReleaseOnPublish := false
-publishMavenStyle := true
-pomExtra := (
-  <scm>
-    <connection>scm:git@github.com:colisweb/sbt-datadog.git</connection>
-    <developerConnection>scm:git@github.com:colisweb/sbt-datadog.git</developerConnection>
-    <url>https://github.com/colisweb/sbt-datadog</url>
-  </scm>
-    <developers>
-      <developer>
-        <id>guizmaii</id>
-        <name>Jules Ivanic</name>
-      </developer>
-    </developers>
-)
+publishMavenStyle := false
 
