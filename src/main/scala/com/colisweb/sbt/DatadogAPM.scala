@@ -1,10 +1,10 @@
 package com.colisweb.sbt
 
 import com.typesafe.sbt.SbtNativePackager._
-import com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport._
+import com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport.{bashScriptExtraDefines, _}
 import com.typesafe.sbt.packager.archetypes.scripts.{BashStartScriptPlugin, BatStartScriptPlugin}
 import sbt.Keys._
-import sbt._
+import sbt.{Def, _}
 import sbt.librarymanagement.DependencyFilter
 
 /**
@@ -13,10 +13,15 @@ import sbt.librarymanagement.DependencyFilter
 object DatadogAPM extends AutoPlugin {
 
   object autoImport {
-    lazy val datadogVersion = settingKey[String]("Datadog agent version")
-    lazy val datagodAgent   = taskKey[File]("Datagod agent jar location")
+    lazy val datadogVersion   = settingKey[String]("Datadog agent version")
+    lazy val datagodJavaAgent = taskKey[File]("Datagod agent jar location")
+    lazy val datadogServiceName = taskKey[String](
+      "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name")
+    lazy val datadogAgentHost = taskKey[String](
+      """Hostname for where to send traces to. If using a containerized environment, configure this to be the host ip. See our docker docs for additional detail. Default value: "localhost"""")
+    lazy val datadogEnablePlayInstrumentation =
+      taskKey[Boolean]("""Enable the beta instrumentation of Play 2.4-2.6 project. Default value: false""")
   }
-
   import autoImport._
 
   override def requires = BashStartScriptPlugin && BatStartScriptPlugin
@@ -26,15 +31,33 @@ object DatadogAPM extends AutoPlugin {
   override lazy val projectSettings = Seq(
     ivyConfigurations += DatadogConfig,
     datadogVersion := "0.9.0",
-    libraryDependencies += "com.datadoghq" % "dd-java-agent" % datadogVersion.value % DatadogConfig,
-    datagodAgent := findDatadogAgent(update.value),
-    mappings in Universal += datagodAgent.value -> "datadog/dd-java-agent.jar",
-    bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar""""
-  )
+    datagodJavaAgent := findDatadogJavaAgent(update.value),
+    datadogServiceName := name.value,
+    datadogAgentHost := "localhost",
+    datadogEnablePlayInstrumentation := false,
+    libraryDependencies += "com.datadoghq"          % "dd-java-agent" % datadogVersion.value % DatadogConfig,
+    mappings in Universal += datagodJavaAgent.value -> "datadog/dd-java-agent.jar",
+    bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar""",
+    bashScriptExtraDefines += s"""addJava "-Ddd.service.name=${datadogServiceName.value}"""",
+    bashScriptExtraDefines += s"""addJava "-Ddd.agent.host=${datadogAgentHost.value}"""",
+  ) ++ playInstrumentation
+
+  //
+
+  /**
+    * https://docs.datadoghq.com/tracing/setup/java/#beta-instrumentation
+    */
+  private[this] val playInstrumentation: Seq[Def.Setting[Task[Seq[String]]]] =
+    if (datadogEnablePlayInstrumentation.value)
+      Seq(
+        bashScriptExtraDefines += """addJava "-Ddd.integration.java_concurrent.enabled=true"""",
+        bashScriptExtraDefines += """addJava "-Ddd.integration.play.enabled=true""""
+      )
+    else Seq.empty
+
+  private[this] def findDatadogJavaAgent(report: UpdateReport) = report.matching(datadogFilter).head
 
   private[this] val datadogFilter: DependencyFilter =
     configurationFilter("dd-java-agent") && artifactFilter(`type` = "jar")
-
-  private[this] def findDatadogAgent(report: UpdateReport) = report.matching(datadogFilter).head
 
 }
