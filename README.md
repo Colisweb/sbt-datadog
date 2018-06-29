@@ -39,7 +39,7 @@ Configuration
 To use a specific Datadog Java APM Agent version, add the following to your `build.sbt` file:
 
 ```scala
-datadogVersion := "0.9.0"
+datadogVersion := "0.10.0"
 ```
 
 #### `datadogServiceName`
@@ -73,6 +73,28 @@ You can use your **host** (where you code run) enviroment variables in the value
 ```scala
 datadogServiceName := "${MY_DD_HOST_IP}"
 ```
+
+#### `datadogEnableNetty`
+
+Netty Http Server and Client Instrumentation. Default value is `false`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogEnableNetty := true
+```
+
+#### `datadogEnableAkkaHttp`
+
+Akka-Http Server and Lagom Framework Instrumentation. Default value is `false`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogEnableAkkaHttp := true
+```
+
+
 
 #### Other possible settings
 
