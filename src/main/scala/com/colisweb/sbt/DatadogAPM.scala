@@ -40,18 +40,15 @@ object DatadogAPM extends AutoPlugin {
     libraryDependencies += "com.datadoghq"          % "dd-java-agent" % datadogVersion.value % DatadogConfig,
     mappings in Universal += datagodJavaAgent.value -> "datadog/dd-java-agent.jar",
     bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar"""",
-    addSystemProperty(Def.task { s"dd.service.name=${datadogServiceName.value}" }),
-    addSystemProperty(Def.task { s"dd.agent.host=${datadogAgentHost.value}" }),
-    addSystemProperty(Def.task { s"dd.integration.netty.enabled=${datadogEnableNetty.value}" }),
-    addSystemProperty(Def.task { s"dd.integration.akka-http.enabled=${datadogEnableAkkaHttp.value}" }),
+    bashScriptExtraDefines += s"""addJava "-Ddd.service.name=${datadogServiceName.value}"""",
+    bashScriptExtraDefines += s"""addJava "-Ddd.agent.host=${datadogAgentHost.value}"""",
+    bashScriptExtraDefines += s"""addJava "-Ddd.integration.netty.enabled=${datadogEnableNetty.value}"""",
+    bashScriptExtraDefines += s"""addJava "-Ddd.integration.akka-http.enabled=${datadogEnableAkkaHttp.value}"""",
   )
 
   private[this] def findDatadogJavaAgent(report: UpdateReport) = report.matching(datadogFilter).head
 
   private[this] val datadogFilter: DependencyFilter =
     configurationFilter("dd-java-agent") && artifactFilter(`type` = "jar")
-
-  private[this] def addSystemProperty(property: Def.Initialize[Task[String]]): Def.Setting[Task[Seq[String]]] =
-    bashScriptExtraDefines += s"""addJava "-D${property.value}""""
 
 }
