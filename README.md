@@ -74,6 +74,22 @@ You can use your **host** (where you code run) enviroment variables in the value
 datadogServiceName := "${MY_DD_HOST_IP}"
 ```
 
+#### `datadogEnv`
+
+By default, the agent `env` value is `localhost`q.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogAgentHost := "127.0.0.1"
+```
+
+You can use your **host** (where you code run) enviroment variables in the value:  
+
+```scala
+datadogServiceName := "${MY_DD_HOST_IP}"
+```
+
 #### `datadogEnableNetty`
 
 Netty Http Server and Client Instrumentation. Default value is `false`.
@@ -94,6 +110,15 @@ To use another value, add the following to your `build.sbt` file:
 datadogEnableAkkaHttp := true
 ```
 
+#### `datadogEnableDebug`
+
+To return debug level application logs, enable debug mode with this flag. Default value is `false`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogEnableDebug := true
+```
 
 
 #### Other possible settings
