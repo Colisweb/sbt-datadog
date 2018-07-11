@@ -48,8 +48,14 @@ object DatadogAPM extends AutoPlugin {
     bashScriptExtraDefines += s"""addJava "-Ddd.agent.host=${datadogAgentHost.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.integration.netty.enabled=${datadogEnableNetty.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.integration.akka-http.enabled=${datadogEnableAkkaHttp.value}"""",
-    bashScriptExtraDefines += (if (datadogEnv.value.nonEmpty) s"""addJava "-Ddd.trace.span.tags="env:${datadogEnv.value}""""" else """echo "Datadog env is not set"""") ,
-    bashScriptExtraDefines += (if (datadogEnableDebug.value) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug"""" else """echo "Datadog debug mode disabled"""")
+    bashScriptExtraDefines += {
+      val env = datadogEnv.value
+      if (env.nonEmpty) s"""addJava "-Ddd.trace.span.tags="env:$env""""" else """echo "Datadog env is not set""""
+    },
+    bashScriptExtraDefines += {
+      val debugEnabled = datadogEnableDebug.value
+      if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug"""" else """echo "Datadog debug mode disabled""""
+    }
   )
 
   private[this] def findDatadogJavaAgent(report: UpdateReport) = report.matching(datadogFilter).head
