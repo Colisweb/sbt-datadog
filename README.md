@@ -4,7 +4,7 @@
 
 This project is highly inspired by the fantastic [sbt-newrelic](https://github.com/gilt/sbt-newrelic) project.
 
-We want to thanks [Gilt](http://tech.gilt.com) for their work on `sbt-newrelic` that allows us to create this project really quickly.
+We want to thanks [Gilt](http://tech.gilt.com) for their work on `sbt-newrelic` that allowed us to create this project really quickly.
 
 Prerequisites
 -------------
@@ -39,7 +39,7 @@ Configuration
 To use a specific Datadog Java APM Agent version, add the following to your `build.sbt` file:
 
 ```scala
-datadogVersion := "0.9.0"
+datadogVersion := "0.10.0"
 ```
 
 #### `datadogServiceName`
@@ -73,6 +73,53 @@ You can use your **host** (where you code run) enviroment variables in the value
 ```scala
 datadogServiceName := "${MY_DD_HOST_IP}"
 ```
+
+#### `datadogEnv`
+
+By default, the `env` is not set.
+
+To set the `env`, add the following to your `build.sbt` file:
+
+```scala
+datadogEnv := "staging"
+```
+
+You can use your **host** (where you code run) enviroment variables in the value:  
+
+```scala
+datadogEnv := "${MY_ENV}"
+```
+
+#### `datadogEnableNetty`
+
+Netty Http Server and Client Instrumentation. Default value is `false`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogEnableNetty := true
+```
+
+#### `datadogEnableAkkaHttp`
+
+Akka-Http Server and Lagom Framework Instrumentation. Default value is `false`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogEnableAkkaHttp := true
+```
+
+#### `datadogEnableDebug`
+
+To return debug level application logs, enable debug mode with this flag. Default value is `false`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogEnableDebug := true
+```
+
 
 #### Other possible settings
 
