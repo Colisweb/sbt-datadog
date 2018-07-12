@@ -50,7 +50,7 @@ object DatadogAPM extends AutoPlugin {
     bashScriptExtraDefines += s"""addJava "-Ddd.integration.akka-http.enabled=${datadogEnableAkkaHttp.value}"""",
     bashScriptExtraDefines += {
       val env = datadogEnv.value
-      if (env.nonEmpty) s"""addJava "-Ddd.trace.span.tags="env:$env""""" else """echo "Datadog env is not set""""
+      if (env.nonEmpty) s"""addJava "-Ddd.trace.span.tags=\"env:$env\""""" else """echo "Datadog env is not set""""
     },
     bashScriptExtraDefines += {
       val debugEnabled = datadogEnableDebug.value
