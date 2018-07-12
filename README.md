@@ -4,7 +4,7 @@
 
 This project is highly inspired by the fantastic [sbt-newrelic](https://github.com/gilt/sbt-newrelic) project.
 
-We want to thanks [Gilt](http://tech.gilt.com) for their work on `sbt-newrelic` that allows us to create this project really quickly.
+We want to thanks [Gilt](http://tech.gilt.com) for their work on `sbt-newrelic` that allowed us to create this project really quickly.
 
 Prerequisites
 -------------
@@ -76,18 +76,18 @@ datadogServiceName := "${MY_DD_HOST_IP}"
 
 #### `datadogEnv`
 
-By default, the agent `env` value is `localhost`q.
+By default, the `env` is not set.
 
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogAgentHost := "127.0.0.1"
+datadogEnv := "staging"
 ```
 
 You can use your **host** (where you code run) enviroment variables in the value:  
 
 ```scala
-datadogServiceName := "${MY_DD_HOST_IP}"
+datadogEnv := "${MY_ENV}"
 ```
 
 #### `datadogEnableNetty`
