@@ -78,7 +78,7 @@ datadogServiceName := "${MY_DD_HOST_IP}"
 
 By default, the `env` is not set.
 
-To use another value, add the following to your `build.sbt` file:
+To set the `env`, add the following to your `build.sbt` file:
 
 ```scala
 datadogEnv := "staging"
