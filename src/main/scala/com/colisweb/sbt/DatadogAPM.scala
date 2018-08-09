@@ -4,8 +4,8 @@ import com.typesafe.sbt.SbtNativePackager._
 import com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport.bashScriptExtraDefines
 import com.typesafe.sbt.packager.archetypes.scripts.{BashStartScriptPlugin, BatStartScriptPlugin}
 import sbt.Keys._
+import sbt._
 import sbt.librarymanagement.DependencyFilter
-import sbt.{Def, _}
 
 /**
   * Eagerly inspired by https://github.com/gilt/sbt-newrelic
