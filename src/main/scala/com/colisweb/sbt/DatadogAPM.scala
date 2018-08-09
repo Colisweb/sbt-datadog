@@ -19,6 +19,8 @@ object DatadogAPM extends AutoPlugin {
       "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name")
     lazy val datadogAgentHost = taskKey[String](
       """Hostname for where to send traces to. If using a containerized environment, configure this to be the host ip. See our docker docs for additional detail. Default value: "localhost"""")
+    lazy val datadogAgentPort = taskKey[Int](
+      "Port number the Agent is listening on for configured host. Default value: 8126")
     lazy val datadogEnv = taskKey[String](
       "Environment. https://docs.datadoghq.com/tracing/setup/first_class_dimensions/. By default, this settings is not set")
     lazy val datadogEnableNetty = taskKey[Boolean]("Netty Http Server and Client Instrumentation. Default value: false")
@@ -39,6 +41,7 @@ object DatadogAPM extends AutoPlugin {
     datagodJavaAgent := findDatadogJavaAgent(update.value),
     datadogServiceName := name.value,
     datadogAgentHost := "localhost",
+    datadogAgentPort := 8126,
     datadogEnv := "",
     datadogEnableNetty := false,
     datadogEnableAkkaHttp := false,
@@ -48,6 +51,7 @@ object DatadogAPM extends AutoPlugin {
     bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.service.name=${datadogServiceName.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.agent.host=${datadogAgentHost.value}"""",
+    bashScriptExtraDefines += s"""addJava "-Ddd.agent.port=${datadogAgentPort.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.integration.netty.enabled=${datadogEnableNetty.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.integration.akka-http.enabled=${datadogEnableAkkaHttp.value}"""",
     bashScriptExtraDefines += {

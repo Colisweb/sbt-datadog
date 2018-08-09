@@ -74,6 +74,22 @@ You can use your **host** (where you code run) enviroment variables in the value
 datadogServiceName := "${MY_DD_HOST_IP}"
 ```
 
+#### `datadogAgentPort`
+
+By default, the agent `agent.port` value is `8126`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogAgentPort := 9999
+```
+
+You can use your **host** (where you code run) enviroment variables in the value:  
+
+```scala
+datadogAgentPort := "${MY_DD_PORT}"
+```
+
 #### `datadogEnv`
 
 By default, the `env` is not set.
