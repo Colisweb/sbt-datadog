@@ -13,17 +13,19 @@ import sbt.{Def, _}
 object DatadogAPM extends AutoPlugin {
 
   object autoImport {
-    lazy val datadogVersion   = settingKey[String]("Datadog agent version")
-    lazy val datagodJavaAgent = taskKey[File]("Datagod agent jar location")
+    lazy val datadogApmVersion = settingKey[String]("Datadog APM agent version")
+    lazy val datagodJavaAgent  = taskKey[File]("Datagod agent jar location")
     lazy val datadogServiceName = taskKey[String](
       "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name")
     lazy val datadogAgentHost = taskKey[String](
       """Hostname for where to send traces to. If using a containerized environment, configure this to be the host ip. See our docker docs for additional detail. Default value: "localhost"""")
-    lazy val datadogEnv = taskKey[String]("Environment. https://docs.datadoghq.com/tracing/setup/first_class_dimensions/. By default, this settings is not set")
+    lazy val datadogEnv = taskKey[String](
+      "Environment. https://docs.datadoghq.com/tracing/setup/first_class_dimensions/. By default, this settings is not set")
     lazy val datadogEnableNetty = taskKey[Boolean]("Netty Http Server and Client Instrumentation. Default value: false")
     lazy val datadogEnableAkkaHttp =
       taskKey[Boolean]("Akka-Http Server and Lagom Framework Instrumentation. Default value: false")
-    lazy val datadogEnableDebug = taskKey[Boolean]("To return debug level application logs, enable debug mode. Default value: false")
+    lazy val datadogEnableDebug =
+      taskKey[Boolean]("To return debug level application logs, enable debug mode. Default value: false")
   }
   import autoImport._
 
@@ -33,7 +35,7 @@ object DatadogAPM extends AutoPlugin {
 
   override lazy val projectSettings = Seq(
     ivyConfigurations += DatadogConfig,
-    datadogVersion := "0.10.0",
+    datadogApmVersion := "0.10.0",
     datagodJavaAgent := findDatadogJavaAgent(update.value),
     datadogServiceName := name.value,
     datadogAgentHost := "localhost",
@@ -41,7 +43,7 @@ object DatadogAPM extends AutoPlugin {
     datadogEnableNetty := false,
     datadogEnableAkkaHttp := false,
     datadogEnableDebug := false,
-    libraryDependencies += "com.datadoghq"          % "dd-java-agent" % datadogVersion.value % DatadogConfig,
+    libraryDependencies += "com.datadoghq"          % "dd-java-agent" % datadogApmVersion.value % DatadogConfig,
     mappings in Universal += datagodJavaAgent.value -> "datadog/dd-java-agent.jar",
     bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.service.name=${datadogServiceName.value}"""",
@@ -54,7 +56,8 @@ object DatadogAPM extends AutoPlugin {
     },
     bashScriptExtraDefines += {
       val debugEnabled = datadogEnableDebug.value
-      if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug"""" else """echo "Datadog debug mode disabled""""
+      if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug""""
+      else """echo "Datadog debug mode disabled""""
     }
   )
 
