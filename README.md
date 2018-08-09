@@ -34,12 +34,12 @@ enablePlugins(DatadogAPM)
 Configuration
 -------------
 
-#### `datadogVersion`
+#### `datadogApmVersion`
 
 To use a specific Datadog Java APM Agent version, add the following to your `build.sbt` file:
 
 ```scala
-datadogVersion := "0.10.0"
+datadogApmVersion := "0.10.0"
 ```
 
 #### `datadogServiceName`
@@ -72,6 +72,22 @@ You can use your **host** (where you code run) enviroment variables in the value
 
 ```scala
 datadogServiceName := "${MY_DD_HOST_IP}"
+```
+
+#### `datadogAgentPort`
+
+By default, the agent `agent.port` value is `8126`.
+
+To use another value, add the following to your `build.sbt` file:
+
+```scala
+datadogAgentPort := 9999
+```
+
+You can use your **host** (where you code run) enviroment variables in the value:  
+
+```scala
+datadogAgentPort := "${MY_DD_PORT}"
 ```
 
 #### `datadogEnv`
