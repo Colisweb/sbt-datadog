@@ -2,7 +2,7 @@ organization := "com.colisweb.sbt"
 
 name := "sbt-datadog"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.10.5"
 
 sbtPlugin := true
 

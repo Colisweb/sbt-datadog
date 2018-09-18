@@ -5,7 +5,6 @@ import com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoIm
 import com.typesafe.sbt.packager.archetypes.scripts.{BashStartScriptPlugin, BatStartScriptPlugin}
 import sbt.Keys._
 import sbt._
-import sbt.librarymanagement.DependencyFilter
 
 /**
   * Eagerly inspired by https://github.com/gilt/sbt-newrelic
