@@ -28,6 +28,10 @@ object DatadogAPM extends AutoPlugin {
         taskKey[Boolean]("Akka-Http Server and Lagom Framework Instrumentation. Default value: false")
       lazy val enableDebug =
         taskKey[Boolean]("To return debug level application logs, enable debug mode. Default value: false")
+      lazy val traceAnnotations = taskKey[String](
+        "List of class/interface and methods to trace. Similar to adding @Trace, but without changing code. https://docs.datadoghq.com/tracing/setup/first_class_dimensions/. Default value: datadog.trace.api.Trace")
+      lazy val traceMethods = taskKey[String](
+        "List of class/interface and methods to trace. Similar to adding @Trace, but without changing code. https://docs.datadoghq.com/tracing/setup/first_class_dimensions/. By default, this setting is not set")
     }
   }
   import autoImport._
@@ -49,6 +53,8 @@ object DatadogAPM extends AutoPlugin {
     datadog.enableNetty := false,
     datadog.enableAkkaHttp := false,
     datadog.enableDebug := false,
+    datadog.traceAnnotations := "datadog.trace.api.Trace",
+    datadog.traceMethods := "",
 
     libraryDependencies += "com.datadoghq" % "dd-java-agent" % datadog.apmVersion.value % DatadogConfig,
     mappings in Universal += datadog.javaAgent.value -> "datadog/dd-java-agent.jar",
@@ -68,6 +74,11 @@ object DatadogAPM extends AutoPlugin {
       val debugEnabled = datadog.enableDebug.value
       if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug""""
       else """echo "Datadog debug mode disabled""""
+    },
+    bashScriptExtraDefines += s"""addJava "-Ddd.trace.annotations=${datadog.traceAnnotations.value}"""",
+    bashScriptExtraDefines += {
+      val traceMethods = datadog.traceMethods.value
+      if (traceMethods.nonEmpty) s"""addJava "-Ddd.trace.methods=$traceMethods"""" else """echo "No trace methods defined""""
     }
   )
 
