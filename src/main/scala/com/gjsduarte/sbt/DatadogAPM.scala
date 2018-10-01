@@ -1,4 +1,4 @@
-package com.colisweb.sbt
+package com.gjsduarte.sbt
 
 import com.typesafe.sbt.SbtNativePackager._
 import com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport.bashScriptExtraDefines
@@ -13,7 +13,7 @@ object DatadogAPM extends AutoPlugin {
 
   object autoImport {
     lazy val datadogApmVersion = settingKey[String]("Datadog APM agent version")
-    lazy val datagodJavaAgent  = taskKey[File]("Datagod agent jar location")
+    lazy val datadogJavaAgent  = taskKey[File]("Datadog agent jar location")
     lazy val datadogServiceName = taskKey[String](
       "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name")
     lazy val datadogAgentHost = taskKey[String](
@@ -37,7 +37,7 @@ object DatadogAPM extends AutoPlugin {
   override lazy val projectSettings = Seq(
     ivyConfigurations += DatadogConfig,
     datadogApmVersion := "0.10.0",
-    datagodJavaAgent := findDatadogJavaAgent(update.value),
+    datadogJavaAgent := findDatadogJavaAgent(update.value),
     datadogServiceName := name.value,
     datadogAgentHost := "localhost",
     datadogAgentPort := 8126,
@@ -46,7 +46,7 @@ object DatadogAPM extends AutoPlugin {
     datadogEnableAkkaHttp := false,
     datadogEnableDebug := false,
     libraryDependencies += "com.datadoghq"          % "dd-java-agent" % datadogApmVersion.value % DatadogConfig,
-    mappings in Universal += datagodJavaAgent.value -> "datadog/dd-java-agent.jar",
+    mappings in Universal += datadogJavaAgent.value -> "datadog/dd-java-agent.jar",
     bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.service.name=${datadogServiceName.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.agent.host=${datadogAgentHost.value}"""",
