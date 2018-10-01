@@ -1,5 +1,7 @@
 #### This project is a fork of [Colisweb/sbt-datadog](https://github.com/Colisweb/sbt-datadog) with support for *sbt 0.13*
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.gjsduarte/sbt-datadog_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.gjsduarte/sbt-datadog_2.11)
+
 # sbt-datadog
 
 This project is highly inspired by the fantastic [sbt-newrelic](https://github.com/gilt/sbt-newrelic) project.
