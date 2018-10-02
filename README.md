@@ -1,6 +1,8 @@
-# sbt-datadog
+#### This project is a fork of [Colisweb/sbt-datadog](https://github.com/Colisweb/sbt-datadog) with support for *sbt 0.13*
 
-[ ![Download](https://api.bintray.com/packages/colisweb/sbt-plugins/sbt-datadog/images/download.svg) ](https://bintray.com/colisweb/sbt-plugins/sbt-datadog/_latestVersion)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.gjsduarte/sbt-datadog_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.gjsduarte/sbt-datadog_2.11)
+
+# sbt-datadog
 
 This project is highly inspired by the fantastic [sbt-newrelic](https://github.com/gilt/sbt-newrelic) project.
 
@@ -20,9 +22,7 @@ Installation
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-resolvers += Resolver.bintrayRepo("colisweb", "sbt-plugins")
-
-addSbtPlugin("com.colisweb.sbt" % "sbt-datadog" % "0.1.8")
+addSbtPlugin("com.github.gjsduarte" % "sbt-datadog" % "0.2.0")
 ```
 
 To enable the Datadog APM for your project, add the `DatadogAPM` auto-plugin to your project.
@@ -34,106 +34,106 @@ enablePlugins(DatadogAPM)
 Configuration
 -------------
 
-#### `datadogApmVersion`
+#### `apmVersion`
 
 To use a specific Datadog Java APM Agent version, add the following to your `build.sbt` file:
 
 ```scala
-datadogApmVersion := "0.10.0"
+datadog.apmVersion := "0.10.0"
 ```
 
-#### `datadogServiceName`
+#### `serviceName`
 
 By default, the agent will use the sbt project `name` value as `service.name`. 
 
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogServiceName := "another name"
+datadog.serviceName := "another name"
 ```
 
 You can use your **host** (where you code run) enviroment variables in the value:  
 
 ```scala
-datadogServiceName := "another name ${MY_HOST_ENV_VAR}"
+datadog.serviceName := "another name ${MY_HOST_ENV_VAR}"
 ```
 
-#### `datadogAgentHost`
+#### `agentHost`
 
 By default, the agent `agent.host` value is `localhost`.
 
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogAgentHost := "127.0.0.1"
+datadog.agentHost := "127.0.0.1"
 ```
 
 You can use your **host** (where you code run) enviroment variables in the value:  
 
 ```scala
-datadogServiceName := "${MY_DD_HOST_IP}"
+datadog.serviceName := "${MY_DD_HOST_IP}"
 ```
 
-#### `datadogAgentPort`
+#### `agentPort`
 
 By default, the agent `agent.port` value is `8126`.
 
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogAgentPort := 9999
+datadog.agentPort := 9999
 ```
 
 You can use your **host** (where you code run) enviroment variables in the value:  
 
 ```scala
-datadogAgentPort := "${MY_DD_PORT}"
+datadog.agentPort := "${MY_DD_PORT}"
 ```
 
-#### `datadogEnv`
+#### `environment`
 
 By default, the `env` is not set.
 
 To set the `env`, add the following to your `build.sbt` file:
 
 ```scala
-datadogEnv := "staging"
+datadog.environment := "staging"
 ```
 
 You can use your **host** (where you code run) enviroment variables in the value:  
 
 ```scala
-datadogEnv := "${MY_ENV}"
+datadog.environment := "${MY_ENV}"
 ```
 
-#### `datadogEnableNetty`
+#### `enableNetty`
 
 Netty Http Server and Client Instrumentation. Default value is `false`.
 
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogEnableNetty := true
+datadog.enableNetty := true
 ```
 
-#### `datadogEnableAkkaHttp`
+#### `enableAkkaHttp`
 
 Akka-Http Server and Lagom Framework Instrumentation. Default value is `false`.
 
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogEnableAkkaHttp := true
+datadog.enableAkkaHttp := true
 ```
 
-#### `datadogEnableDebug`
+#### `enableDebug`
 
 To return debug level application logs, enable debug mode with this flag. Default value is `false`.
 
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogEnableDebug := true
+datadog.enableDebug := true
 ```
 
 
