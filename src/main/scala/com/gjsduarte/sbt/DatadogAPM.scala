@@ -53,7 +53,7 @@ object DatadogAPM extends AutoPlugin {
     datadog.enableNetty := false,
     datadog.enableAkkaHttp := false,
     datadog.enableDebug := false,
-    datadog.traceAnnotations := "datadog.trace.api.Trace",
+    datadog.traceAnnotations := "",
     datadog.traceMethods := "",
 
     libraryDependencies += "com.datadoghq" % "dd-java-agent" % datadog.apmVersion.value % DatadogConfig,
@@ -68,17 +68,20 @@ object DatadogAPM extends AutoPlugin {
     bashScriptExtraDefines += s"""addJava "-Ddd.integration.akka-http.enabled=${datadog.enableAkkaHttp.value}"""",
     bashScriptExtraDefines += {
       val environment = datadog.environment.value
-      if (environment.nonEmpty) s"""addJava "-Ddd.trace.span.tags=env:$environment"""" else """echo "Datadog env is not set""""
+      if (environment.nonEmpty) s"""addJava "-Ddd.trace.span.tags=env:$environment"""" else ""
     },
     bashScriptExtraDefines += {
       val debugEnabled = datadog.enableDebug.value
       if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug""""
       else """echo "Datadog debug mode disabled""""
     },
-    bashScriptExtraDefines += s"""addJava "-Ddd.trace.annotations=${datadog.traceAnnotations.value}"""",
+    bashScriptExtraDefines += {
+      val traceAnnotations = datadog.traceAnnotations.value
+      if (traceAnnotations.nonEmpty) s"""addJava "-Ddd.trace.annotations=$traceAnnotations"""" else ""
+    },
     bashScriptExtraDefines += {
       val traceMethods = datadog.traceMethods.value
-      if (traceMethods.nonEmpty) s"""addJava "-Ddd.trace.methods=$traceMethods"""" else """echo "No trace methods defined""""
+      if (traceMethods.nonEmpty) s"""addJava "-Ddd.trace.methods=$traceMethods"""" else ""
     }
   )
 
