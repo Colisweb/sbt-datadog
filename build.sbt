@@ -2,11 +2,11 @@ organization := "com.colisweb.sbt"
 
 name := "sbt-datadog"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.7"
 
 sbtPlugin := true
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.4" % "provided")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.13" % "provided")
 
 credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
 licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
