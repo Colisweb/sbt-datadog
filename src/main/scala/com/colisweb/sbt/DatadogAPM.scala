@@ -14,7 +14,7 @@ object DatadogAPM extends AutoPlugin {
 
   object autoImport {
     lazy val datadogApmVersion = settingKey[String]("Datadog APM agent version")
-    lazy val datadogJavaAgent  = taskKey[File]("Datagod agent jar location")
+    lazy val datadogJavaAgent  = taskKey[File]("Datadog agent jar location")
     lazy val datadogServiceName = taskKey[String](
       "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name")
     lazy val datadogAgentHost = taskKey[String](
