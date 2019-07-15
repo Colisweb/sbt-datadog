@@ -71,7 +71,7 @@ datadogAgentHost := "127.0.0.1"
 You can use your **host** (where you code run) enviroment variables in the value:  
 
 ```scala
-datadogServiceName := "${MY_DD_HOST_IP}"
+datadogAgentHost := "${MY_DD_HOST_IP}"
 ```
 
 #### `datadogAgentPort`
@@ -134,6 +134,16 @@ To use another value, add the following to your `build.sbt` file:
 
 ```scala
 datadogEnableDebug := true
+```
+
+#### `datadogGlobalTags`
+
+A list of default tags to be added to every span and every JMX metric. Default value is an empty list.
+
+To add global tags:
+
+```scala
+datadogGlobalTags += ("key", "value")
 ```
 
 
