@@ -68,7 +68,7 @@ object DatadogAPM extends AutoPlugin {
       else """echo "Datadog debug mode disabled""""
     },
     bashScriptExtraDefines ++= datadogGlobalTags.value.map { case (key, value) =>
-      s"""addJava -Ddd.trace.global.tags=$key=$value"""
+      s"""addJava -Ddd.trace.global.tags=$key:$value"""
     }
   )
 
