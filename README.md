@@ -52,7 +52,7 @@ To use another value, add the following to your `build.sbt` file:
 datadogServiceName := "another name"
 ```
 
-You can use your **host** (where you code run) enviroment variables in the value:  
+You can use your **host** (where you code run) environment variables in the value:  
 
 ```scala
 datadogServiceName := "another name ${MY_HOST_ENV_VAR}"
@@ -68,7 +68,7 @@ To use another value, add the following to your `build.sbt` file:
 datadogAgentHost := "127.0.0.1"
 ```
 
-You can use your **host** (where you code run) enviroment variables in the value:  
+You can use your **host** (where you code run) environment variables in the value:  
 
 ```scala
 datadogAgentHost := "${MY_DD_HOST_IP}"
@@ -84,7 +84,7 @@ To use another value, add the following to your `build.sbt` file:
 datadogAgentPort := 9999
 ```
 
-You can use your **host** (where you code run) enviroment variables in the value:  
+You can use your **host** (where you code run) environment variables in the value:  
 
 ```scala
 datadogAgentPort := "${MY_DD_PORT}"
@@ -100,7 +100,7 @@ To set the `env`, add the following to your `build.sbt` file:
 datadogEnv := "staging"
 ```
 
-You can use your **host** (where you code run) enviroment variables in the value:  
+You can use your **host** (where you code run) environment variables in the value:  
 
 ```scala
 datadogEnv := "${MY_ENV}"
