@@ -1,19 +1,15 @@
 organization := "com.colisweb.sbt"
-
 name := "sbt-datadog"
-
-scalaVersion := "2.12.7"
-
+scalaVersion := "2.12.10"
+licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
+homepage := Some(url("https://github.com/colisweb/sbt-datadog"))
 sbtPlugin := true
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.13" % "provided")
-
-credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
-licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
-homepage := Some(url("https://github.com/colisweb/sbt-datadog"))
 bintrayOrganization := Some("colisweb")
 bintrayReleaseOnPublish := true
 publishMavenStyle := true
+
 pomExtra := (
   <url>https://github.com/colisweb/sbt-datadog</url>
   <scm>
