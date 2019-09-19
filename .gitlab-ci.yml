@@ -1,0 +1,29 @@
+stages:
+  - publish
+
+publish on bintray:
+  stage: publish
+  only:
+    - master
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - git config --global user.email $GITLAB_USER_EMAIL
+    - git config --global user.name "$GITLAB_USER_NAME"
+    - git remote set-url origin https://gitlab.ci1:$GIT_CI_PASS@gitlab.com/$CI_PROJECT_PATH.git
+    - git fetch origin
+    - git checkout $CI_COMMIT_REF_NAME
+    - sbt -Dbintray.user=gitlab-ci -Dbintray.pass=$BINTRAY_PASS "release skip-tests with-defaults"
+
+image: hseeberger/scala-sbt:11.0.3_1.2.8_2.12.8
+variables:
+  SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbtboot -Dsbt.boot.directory=sbt-cache/boot -Dsbt.ivy.home=sbt-cache/ivy"
+  COURSIER_CACHE: "sbt-cache/coursier"
+cache:
+  key: "sbt-$CI_BUILD_REF_NAME"
+  paths:
+    - sbt-cache
+
+before_script:
+  - gpg --import  <(echo "$GITLAB_PGP_PRIVATE_KEY")
+  - source <(gpg -q --decrypt secrets-env.sh.secret)
