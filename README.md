@@ -22,7 +22,7 @@ Add the following to your `project/plugins.sbt` file:
 ```scala
 resolvers += Resolver.bintrayRepo("colisweb", "sbt-plugins")
 
-addSbtPlugin("com.colisweb.sbt" % "sbt-datadog" % "0.1.8")
+addSbtPlugin("com.colisweb.sbt" % "sbt-datadog" % "0.2.0")
 ```
 
 To enable the Datadog APM for your project, add the `DatadogAPM` auto-plugin to your project.
@@ -76,12 +76,12 @@ datadogAgentHost := "${MY_DD_HOST_IP}"
 
 #### `datadogAgentPort`
 
-By default, the agent `agent.port` value is `8126`.
+By default, the agent `agent.port` value is `"8126"`.
 
 To use another value, add the following to your `build.sbt` file:
 
 ```scala
-datadogAgentPort := 9999
+datadogAgentPort := "9999"
 ```
 
 You can use your **host** (where you code run) environment variables in the value:  
