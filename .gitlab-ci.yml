@@ -1,5 +1,8 @@
 include:
-  - 'https://gitlab.com/colisweb-open-source/ci-common/raw/v7.5.0/templates/scala.yml'
+  - 'https://gitlab.com/colisweb-open-source/ci-common/raw/v7.6.0/templates/scala.yml'
+
+variables:
+  RUNNER_TAGS: "shared"
 
 compile:
   extends: .sbt-compile
