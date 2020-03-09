@@ -1,15 +1,16 @@
 include:
-  - 'https://gitlab.com/colisweb-open-source/ci-common/raw/v7.6.0/templates/scala.yml'
-
-variables:
-  RUNNER_TAGS: "shared"
+  - 'https://gitlab.com/colisweb-open-source/ci-common/raw/v7.7.0/templates/scala.yml'
 
 compile:
   extends: .sbt-compile
+  tags: []
 
 test sbt-datadog:
   extends: .sbt-test
+  tags: []
 
 publish on bintray:
   extends: .bintray-publish
+  tags: []
+
 
