@@ -1,5 +1,11 @@
 stages:
+  - test
   - publish
+
+test:
+  stage: test
+  script:
+    - sbt test
 
 publish on bintray:
   stage: publish
