@@ -11,6 +11,7 @@ project/boot/
 project/plugins/project/
 .history
 .cache
+sbt-cache
 .lib/
 ### Scala template
 *.class
@@ -69,3 +70,9 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 /.idea/
+.gitsecret/keys/random_seed
+!*.secret
+secrets-env.sh
+
+.metals
+.bloop
