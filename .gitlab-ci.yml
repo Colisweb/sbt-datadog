@@ -21,7 +21,7 @@ publish on bintray:
     - git checkout $CI_COMMIT_REF_NAME
     - sbt -Dbintray.user=gitlab-ci -Dbintray.pass=$BINTRAY_PASS "release skip-tests with-defaults"
 
-image: hseeberger/scala-sbt:11.0.3_1.2.8_2.12.8
+image: hseeberger/scala-sbt:11.0.6_1.3.8_2.12.10
 variables:
   SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbtboot -Dsbt.boot.directory=sbt-cache/boot -Dsbt.ivy.home=sbt-cache/ivy"
   COURSIER_CACHE: "sbt-cache/coursier"
