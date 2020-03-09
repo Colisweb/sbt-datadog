@@ -9,6 +9,10 @@ test sbt-datadog:
   extends: .sbt-test
   tags: []
 
+version:
+  extends: .version
+  tags: []
+
 publish on bintray:
   extends: .bintray-publish
   tags: []
