@@ -16,20 +16,23 @@ object DatadogAPM extends AutoPlugin {
     lazy val datadogApmVersion = settingKey[String]("Datadog APM agent version")
     lazy val datadogJavaAgent  = taskKey[File]("Datadog agent jar location")
     lazy val datadogServiceName = taskKey[String](
-      "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name")
+      "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name"
+    )
     lazy val datadogAgentHost = taskKey[String](
-      """Hostname for where to send traces to. If using a containerized environment, configure this to be the host ip. See our docker docs for additional detail. Default value: "localhost"""")
-    lazy val datadogAgentPort = taskKey[String](
-      "Port number the Agent is listening on for configured host. Default value: 8126")
+      """Hostname for where to send traces to. If using a containerized environment, configure this to be the host ip. See our docker docs for additional detail. Default value: "localhost""""
+    )
+    lazy val datadogAgentPort =
+      taskKey[String]("Port number the Agent is listening on for configured host. Default value: 8126")
     lazy val datadogEnv = taskKey[String](
-      "Environment. https://docs.datadoghq.com/tracing/setup/first_class_dimensions/. By default, this settings is not set")
+      "Environment. https://docs.datadoghq.com/tracing/setup/first_class_dimensions/. By default, this settings is not set"
+    )
     lazy val datadogEnableNetty = taskKey[Boolean]("Netty Http Server and Client Instrumentation. Default value: false")
     lazy val datadogEnableAkkaHttp =
       taskKey[Boolean]("Akka-Http Server and Lagom Framework Instrumentation. Default value: false")
     lazy val datadogEnableDebug =
       taskKey[Boolean]("To return debug level application logs, enable debug mode. Default value: false")
     lazy val datadogGlobalTags = taskKey[Seq[(String, String)]](
-       "A list of default tags to be added to every span and every JMX metric. Default value: Empty List"
+      "A list of default tags to be added to every span and every JMX metric. Default value: Empty List"
     )
   }
   import autoImport._
@@ -67,8 +70,9 @@ object DatadogAPM extends AutoPlugin {
       if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug""""
       else """echo "Datadog debug mode disabled""""
     },
-    bashScriptExtraDefines ++= datadogGlobalTags.value.map { case (key, value) =>
-      s"""addJava -Ddd.trace.global.tags=$key:$value"""
+    bashScriptExtraDefines ++= datadogGlobalTags.value.map {
+      case (key, value) =>
+        s"""addJava -Ddd.trace.global.tags=$key:$value"""
     }
   )
 
