@@ -5,7 +5,7 @@ licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 homepage := Some(url("https://github.com/colisweb/sbt-datadog"))
 sbtPlugin := true
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.25" % "provided")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.6.1" % "provided")
 bintrayOrganization := Some("colisweb")
 publishMavenStyle := true
 
