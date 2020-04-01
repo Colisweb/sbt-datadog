@@ -1,5 +1,5 @@
 include:
-  - 'https://gitlab.com/colisweb-open-source/ci-common/raw/v7.9.1/templates/scala.yml'
+  - 'https://gitlab.com/colisweb-open-source/ci-common/raw/v8.0.0/templates/scala.yml'
 
 test sbt-datadog:
   extends: .sbt-test
@@ -12,6 +12,9 @@ unused-dependencies:
 version:
   extends: .version
   tags: []
+  image:
+    name: colisweb/semantic-release:0.10.2
+    entrypoint: []
 
 publish on bintray:
   extends: .bintray-publish
