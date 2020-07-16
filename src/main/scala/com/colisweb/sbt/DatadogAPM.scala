@@ -31,6 +31,10 @@ object DatadogAPM extends AutoPlugin {
     lazy val datadogGlobalTags = taskKey[Map[String, String]](
       "A list of default tags to be added to every span and every JMX metric. Default value: Empty List"
     )
+
+    lazy val datadogSbtLogStartupDebug = taskKey[Boolean](
+      "When enabled will log various debugging-related pieces of information on startup. Default value: true"
+    )
   }
   import autoImport._
 
@@ -45,6 +49,7 @@ object DatadogAPM extends AutoPlugin {
     datadogServiceName := name.value,
     datadogAgentHost := "localhost",
     datadogAgentPort := "8126",
+    datadogSbtLogStartupDebug := true,
     datadogEnableNetty := false,
     datadogEnableAkkaHttp := false,
     datadogEnableDebug := false,
@@ -58,19 +63,23 @@ object DatadogAPM extends AutoPlugin {
     bashScriptExtraDefines += s"""addJava "-Ddd.integration.netty.enabled=${datadogEnableNetty.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.integration.akka-http.enabled=${datadogEnableAkkaHttp.value}"""",
     bashScriptExtraDefines += {
+      val debugLogging = datadogSbtLogStartupDebug.value
       val debugEnabled = datadogEnableDebug.value
       if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug""""
-      else """echo "Datadog debug mode disabled""""
+      else if (debugLogging) """echo "Datadog debug mode disabled""""
+      else ""
     },
     bashScriptExtraDefines += {
+      val debugLogging = datadogSbtLogStartupDebug.value
       val globalTags = datadogGlobalTags.value
-      (globalTags.contains("env"), globalTags.contains("version")) match {
-        case (false, false) => """echo "Datadog env and app version are not set""""
-        case (false, true)  => """echo "Datadog env is not set""""
-        case (true, false)  => """echo "App version is not set""""
-        case (true, true) =>
+      (globalTags.contains("env"), globalTags.contains("version"), debugLogging) match {
+        case (false, false, true) => """echo "Datadog env and app version are not set""""
+        case (false, true, true)  => """echo "Datadog env is not set""""
+        case (true, false, true)  => """echo "App version is not set""""
+        case (true, true, _) =>
           val tags = globalTags.map { case (key, value) => s"$key:$value" }.mkString(",")
           s"""addJava -Ddd.trace.global.tags=$tags"""
+        case _ => ""
       }
     }
   )
