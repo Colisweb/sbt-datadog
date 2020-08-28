@@ -22,7 +22,7 @@ Add the following to your `project/plugins.sbt` file:
 ```scala
 resolvers += Resolver.bintrayRepo("colisweb", "sbt-plugins")
 
-addSbtPlugin("com.colisweb.sbt" % "sbt-datadog" % "0.2.0")
+addSbtPlugin("com.colisweb.sbt" % "sbt-datadog" % "1.3.0")
 ```
 
 To enable the Datadog APM for your project, add the `DatadogAPM` auto-plugin to your project.
