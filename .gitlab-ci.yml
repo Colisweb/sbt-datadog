@@ -5,10 +5,6 @@ test sbt-datadog:
   extends: .sbt-test
   tags: []
 
-unused-dependencies:
-  extends: .sbt-unused-dependencies
-  tags: []
-
 version:
   extends: .version
   tags: []
