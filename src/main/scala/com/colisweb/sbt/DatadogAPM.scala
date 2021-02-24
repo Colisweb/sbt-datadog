@@ -7,7 +7,8 @@ import sbt.Keys._
 import sbt._
 import sbt.librarymanagement.DependencyFilter
 
-/** Eagerly inspired by https://github.com/gilt/sbt-newrelic
+/**
+  * Eagerly inspired by https://github.com/gilt/sbt-newrelic
   */
 object DatadogAPM extends AutoPlugin {
 
@@ -39,7 +40,7 @@ object DatadogAPM extends AutoPlugin {
 
   override lazy val projectSettings = Seq(
     ivyConfigurations += DatadogConfig,
-    datadogApmVersion := "0.68.0",
+    datadogApmVersion := "0.74.1",
     datadogJavaAgent := findDatadogJavaAgent(update.value),
     datadogServiceName := name.value,
     datadogAgentHost := "localhost",
@@ -48,7 +49,7 @@ object DatadogAPM extends AutoPlugin {
     datadogEnableAkkaHttp := false,
     datadogEnableDebug := false,
     datadogGlobalTags := Map.empty,
-    libraryDependencies += "com.datadoghq"           % "dd-java-agent" % datadogApmVersion.value % DatadogConfig,
+    libraryDependencies += "com.datadoghq"          % "dd-java-agent" % datadogApmVersion.value % DatadogConfig,
     mappings in Universal += datadogJavaAgent.value -> "datadog/dd-java-agent.jar",
     bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.service.name=${datadogServiceName.value}"""",
