@@ -1,15 +1,17 @@
 include:
-  - 'https://gitlab.com/colisweb-open-source/ci-common/raw/v9.4.4/templates/scala.yml'
+  - 'https://colisweb-open-source.gitlab.io/ci-common/templates/scala.yml'
 
 test sbt-datadog:
   extends: .sbt-test
-  tags: []
+  tags:
+    - aws
 
-version:
+version sbt-datadog:
   extends: .version
-  tags: []
+  tags:
+    - aws
 
-publish on bintray:
-  extends: .bintray-publish
-  tags: []
-
+publish sbt-datadog:
+  extends: .sonatype-publish
+  tags:
+    - aws

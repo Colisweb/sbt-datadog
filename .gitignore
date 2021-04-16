@@ -76,3 +76,4 @@ secrets-env.sh
 
 .metals
 .bloop
+.bsp
