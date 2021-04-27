@@ -20,9 +20,8 @@ Installation
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-resolvers += Resolver.bintrayRepo("colisweb", "sbt-plugins")
 
-addSbtPlugin("com.colisweb.sbt" % "sbt-datadog" % "1.3.0")
+addSbtPlugin("com.colisweb" % "sbt-datadog" % "2.1.0")
 ```
 
 To enable the Datadog APM for your project, add the `DatadogAPM` auto-plugin to your project.
@@ -39,7 +38,7 @@ Configuration
 To use a specific Datadog Java APM Agent version, add the following to your `build.sbt` file:
 
 ```scala
-datadogApmVersion := "0.10.0"
+datadogApmVersion := "0.74.1"
 ```
 
 #### `datadogServiceName`
