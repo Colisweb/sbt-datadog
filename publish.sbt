@@ -1,9 +1,9 @@
 ReleaseSettings.globalReleaseSettings
 ReleaseSettings.buildReleaseSettings(
-  details =  "Utilities to use tracing alongside a comprehensive instrumentation, like when using Datadog's java-agent.",
-  licenseName =  "MIT",
+  details = "Utilities to use tracing alongside a comprehensive instrumentation, like when using Datadog's java-agent.",
+  licenseName = "MIT",
   licenseUrl = "http://opensource.org/licenses/MIT",
-  projectName = "sbt-datadog",
+  projectName = "sbt-datadog"
 )
 
 ThisBuild / developers := List(Developers.JulesIvanic)
