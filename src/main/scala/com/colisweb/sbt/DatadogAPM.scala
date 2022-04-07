@@ -22,8 +22,8 @@ object DatadogAPM extends AutoPlugin {
     final case class TraceAgentHttpUrl(host: String, port: String) extends TraceAgentUrl
     final case class TraceAgentUnixSocketUrl(socket: String)       extends TraceAgentUrl
 
-    final val defaultHttpUrl: TraceAgentUrl       = TraceAgentHttpUrl("localhost", "8126")
-    final val defaultUnixSocketUrl: TraceAgentUrl = TraceAgentUnixSocketUrl("/var/run/datadog/apm.socket")
+    final val defaultHttpUrl: TraceAgentUrl       = TraceAgentHttpUrl(host = "localhost", port = "8126")
+    final val defaultUnixSocketUrl: TraceAgentUrl = TraceAgentUnixSocketUrl(socket = "/var/run/datadog/apm.socket")
   }
 
   object autoImport {

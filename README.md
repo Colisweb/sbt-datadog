@@ -24,8 +24,7 @@ Installation
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-
-addSbtPlugin("com.guizmaii" % "sbt-datadog" % "2.1.0")
+addSbtPlugin("com.guizmaii" % "sbt-datadog" % "3.0.0")
 ```
 
 To enable the Datadog APM for your project, add the `DatadogAPM` auto-plugin to your project.
@@ -61,36 +60,41 @@ You can use your **host** (where you code run) environment variables in the valu
 datadogServiceName := "another name ${MY_HOST_ENV_VAR}"
 ```
 
-#### `datadogAgentHost`
+#### `datadogAgentTraceUrl`
 
-By default, the agent `agent.host` value is `localhost`.
+Defines how the APM will communicate with the Datadog Agent.
 
-To use another value, add the following to your `build.sbt` file:
+Two ways are available:
+  - via Unix Socket (default)
+  - via HTTP
+
+By default, the agent `trace.agent.url` value is `/var/run/datadog/apm.socket`.
+
+To use a different Unix Socket, add the following to your `build.sbt` file:
 
 ```scala
-datadogAgentHost := "127.0.0.1"
+datadogAgentTraceUrl := TraceAgentUnixSocketUrl(socket = "/my/directory/my.socket")
 ```
 
-You can use your **host** (where you code run) environment variables in the value:  
+To use the default HTTP URL (`locahost:8126`), add the following to your `build.sbt` file:
 
 ```scala
-datadogAgentHost := "${MY_DD_HOST_IP}"
+datadogAgentTraceUrl := TraceAgentUrl.defaultHttpUrl
 ```
 
-#### `datadogAgentPort`
-
-By default, the agent `agent.port` value is `"8126"`.
-
-To use another value, add the following to your `build.sbt` file:
+To use a custom HTTP URL, add the following to your `build.sbt` file:
 
 ```scala
-datadogAgentPort := "9999"
+datadogAgentTraceUrl := TraceAgentHttpUrl(host = "my.host.address.com", port = "8888")
 ```
 
-You can use your **host** (where you code run) environment variables in the value:  
+
+You can use your **host** (where you code run) environment variables in the values:  
 
 ```scala
-datadogAgentPort := "${MY_DD_PORT}"
+datadogAgentTraceUrl := TraceAgentHttpUrl(host = "${MY_DD_HOST_IP}", port = "8888")
+// Or
+datadogAgentTraceUrl := TraceAgentUnixSocketUrl(socket = "${MY_DD_UNIX_SOCKET}")
 ```
 
 #### `datadogEnableDebug`
