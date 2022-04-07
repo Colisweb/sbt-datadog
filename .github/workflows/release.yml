@@ -33,4 +33,5 @@ jobs:
       - name: Publish package
         run: sbt publish
         env:
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
