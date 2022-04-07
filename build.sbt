@@ -1,8 +1,9 @@
-organization := "com.guizmaii"
-name         := "sbt-datadog"
-version      := sys.env.getOrElse("RELEASE_TAG", "0.0.1-SNAPSHOT")
-scalaVersion := "2.12.15"
-sbtPlugin    := true
+organization  := "com.guizmaii"
+name          := "sbt-datadog"
+version       := sys.env.getOrElse("RELEASE_VERSION", "0.0.1-SNAPSHOT")
+versionScheme := Some("semver-spec")
+scalaVersion  := "2.12.15"
+sbtPlugin     := true
 
 addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.9" % "provided")
 

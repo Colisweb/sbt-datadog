@@ -33,4 +33,4 @@ jobs:
       - name: Publish package
         run: sbt publish
         env:
-          RELEASE_TAG: ${{ env.RELEASE_TAG }}
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
