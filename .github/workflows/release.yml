@@ -23,10 +23,15 @@ jobs:
           java-version: 11
           check-latest: true
 
+      - name: Get the Github Release version
+        id: vars
+        run: echo "::set-output name=tag::${GITHUB_REF#refs/*/}"
+
       - name: Publish package
-        run: sbt 'clean;Test/compile;ci-release'
+        run: sbt ci-release
         env:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}

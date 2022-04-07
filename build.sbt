@@ -1,5 +1,6 @@
 organization  := "com.guizmaii"
 name          := "sbt-datadog"
+version       := sys.env.getOrElse("RELEASE_VERSION", "0.0.1-SNAPSHOT")
 versionScheme := Some("semver-spec")
 scalaVersion  := "2.12.15"
 sbtPlugin     := true
