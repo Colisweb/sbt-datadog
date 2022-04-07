@@ -10,13 +10,13 @@ addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.9" % "provided")
 val GITHUB_OWNER   = "guizmaii"
 val GITHUB_PROJECT = "sbt-datadog"
 
-ThisBuild / publishMavenStyle := true
-ThisBuild / publishTo         := Some(
+publishMavenStyle := true
+publishTo         := Some(
   s"GitHub $GITHUB_OWNER Apache Maven Packages of $GITHUB_PROJECT" at s"https://maven.pkg.github.com/$GITHUB_OWNER/$GITHUB_PROJECT"
 )
 
-ThisBuild / resolvers += s"GitHub $GITHUB_OWNER Apache Maven Packages" at s"https://maven.pkg.github.com/$GITHUB_OWNER/_/"
-ThisBuild / credentials += Credentials(
+resolvers += s"GitHub $GITHUB_OWNER Apache Maven Packages" at s"https://maven.pkg.github.com/$GITHUB_OWNER/_/"
+credentials += Credentials(
   "GitHub Package Registry",
   "maven.pkg.github.com",
   GITHUB_OWNER,
