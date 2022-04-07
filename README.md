@@ -1,6 +1,10 @@
 # sbt-datadog
 
-[ ![Download](https://api.bintray.com/packages/colisweb/sbt-plugins/sbt-datadog/images/download.svg) ](https://bintray.com/colisweb/sbt-plugins/sbt-datadog/_latestVersion)
+## Disclaimer
+
+⚠️ **This is a fork of the original (that I also wrote a long time ago) [Colisweb/sbt-datadog](https://github.com/Colisweb/sbt-datadog)** ⚠️
+
+# Documentation
 
 This project is highly inspired by the fantastic [sbt-newrelic](https://github.com/gilt/sbt-newrelic) project.
 
@@ -21,7 +25,7 @@ Add the following to your `project/plugins.sbt` file:
 
 ```scala
 
-addSbtPlugin("com.colisweb" % "sbt-datadog" % "2.1.0")
+addSbtPlugin("com.guizmaii" % "sbt-datadog" % "2.1.0")
 ```
 
 To enable the Datadog APM for your project, add the `DatadogAPM` auto-plugin to your project.
@@ -38,7 +42,7 @@ Configuration
 To use a specific Datadog Java APM Agent version, add the following to your `build.sbt` file:
 
 ```scala
-datadogApmVersion := "0.74.1"
+datadogApmVersion := "0.98.1"
 ```
 
 #### `datadogServiceName`
@@ -87,26 +91,6 @@ You can use your **host** (where you code run) environment variables in the valu
 
 ```scala
 datadogAgentPort := "${MY_DD_PORT}"
-```
-
-#### `datadogEnableNetty`
-
-Netty Http Server and Client Instrumentation. Default value is `false`.
-
-To use another value, add the following to your `build.sbt` file:
-
-```scala
-datadogEnableNetty := true
-```
-
-#### `datadogEnableAkkaHttp`
-
-Akka-Http Server and Lagom Framework Instrumentation. Default value is `false`.
-
-To use another value, add the following to your `build.sbt` file:
-
-```scala
-datadogEnableAkkaHttp := true
 ```
 
 #### `datadogEnableDebug`
