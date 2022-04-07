@@ -1,0 +1,36 @@
+name: Release
+
+# Triggered when a draft released is "published" (not a draft anymore)
+on:
+  release:
+    types: [ published ]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - run: env
+        shell: bash
+      - uses: actions/checkout@v3
+      - uses: coursier/cache-action@v6
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+          check-latest: true
+
+      - name: Compile code
+        shell: bash
+        run: sbt 'clean;Test/compile'
+
+      - name: Get the Github Release version
+        id: vars
+        run: echo "::set-output name=tag::${GITHUB_REF#refs/*/}"
+
+      - name: Publish package
+        run: sbt publish
+        env:
+          RELEASE_TAG: ${{ env.RELEASE_TAG }}
