@@ -19,7 +19,9 @@ ThisBuild / credentials += Credentials(
   "GitHub Package Registry",
   "maven.pkg.github.com",
   GITHUB_OWNER,
-  env("GITHUB_TOKEN").getOrElse(throw new RuntimeException("Missing env variable:  `GITHUB_TOKEN`")),
+  (env("GITHUB_TOKEN") orElse env("GH_PACKAGES_TOKEN")).getOrElse(
+    throw new RuntimeException("Missing env variable: `GITHUB_TOKEN` or `GH_PACKAGES_TOKEN`")
+  ),
 )
 
 def env(v: String): Option[String] = sys.env.get(v)
