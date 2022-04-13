@@ -1,4 +1,4 @@
-package com.colisweb.sbt
+package com.guizmaii.sbt
 
 import com.typesafe.sbt.SbtNativePackager._
 import com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin.autoImport.bashScriptExtraDefines
