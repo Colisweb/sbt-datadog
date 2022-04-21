@@ -72,8 +72,10 @@ object DatadogAPM extends AutoPlugin {
     },
     bashScriptExtraDefines += {
       val globalTags = datadogGlobalTags.value
-      val tags       = globalTags.map { case (key, value) => s"$key:$value" }.mkString(",")
-      s"""addJava -Ddd.trace.global.tags=$tags"""
+      if (globalTags.nonEmpty) {
+        val tags = globalTags.map { case (key, value) => s"$key:$value" }.mkString(",")
+        s"""addJava "-Ddd.trace.global.tags=$tags""""
+      }
     },
   )
 
