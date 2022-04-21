@@ -70,10 +70,12 @@ object DatadogAPM extends AutoPlugin {
       if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug""""
       else """echo "Datadog debug mode disabled""""
     },
-    bashScriptExtraDefines += {
+    bashScriptExtraDefines ++= {
       val globalTags = datadogGlobalTags.value
-      val tags       = globalTags.map { case (key, value) => s"$key:$value" }.mkString(",")
-      s"""addJava -Ddd.trace.global.tags=$tags"""
+      if (globalTags.nonEmpty) {
+        val tags = globalTags.map { case (key, value) => s"$key:$value" }.mkString(",")
+        Seq(s"""addJava "-Ddd.trace.global.tags=$tags"""")
+      } else Seq.empty
     },
   )
 
