@@ -6,4 +6,4 @@ ReleaseSettings.buildReleaseSettings(
   projectName = "sbt-datadog"
 )
 
-ThisBuild / developers := List(Developers.JulesIvanic)
+ThisBuild / developers := List(Developers.julesIvanic)
