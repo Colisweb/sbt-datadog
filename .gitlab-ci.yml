@@ -1,5 +1,5 @@
 include:
-  - 'https://colisweb-open-source.gitlab.io/ci-common/v13.12.0/templates/scala.yml'
+  - https://colisweb-idl.gitlab.io/colisweb-open-source/ci-common/v14.0.0/templates/scala.yml
 
 test sbt-datadog:
   extends: .sbt-test
