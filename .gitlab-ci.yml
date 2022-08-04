@@ -3,15 +3,10 @@ include:
 
 test sbt-datadog:
   extends: .sbt-test
-  tags:
-    - aws
 
 version sbt-datadog:
   extends: .version
-  tags:
-    - aws
 
 publish sbt-datadog:
   extends: .sonatype-publish
-  tags:
-    - aws
+

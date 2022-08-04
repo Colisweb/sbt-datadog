@@ -1,4 +1,4 @@
 [submodule "scala-common"]
 	path = scala-common
 	url = ../scala-common.git
-	branch = v2.7.1
+	branch = upgrade-credentials-for-legacy
