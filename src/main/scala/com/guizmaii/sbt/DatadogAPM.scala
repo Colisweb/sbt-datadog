@@ -31,6 +31,10 @@ object DatadogAPM extends AutoPlugin {
 
     lazy val datadogJavaAgent = taskKey[File]("Datadog agent jar location")
 
+    lazy val datadogApmEnabled = taskKey[Boolean](
+      "Datadog APM agent enabled. Default: `DD_TRACE_ENABLED` envvar value if present, 'true' otherwise"
+    )
+
     lazy val datadogServiceName = taskKey[String](
       "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name"
     )
@@ -56,6 +60,7 @@ object DatadogAPM extends AutoPlugin {
     ivyConfigurations += DatadogConfig,
     datadogApmVersion                              := "0.100.0",
     datadogJavaAgent                               := findDatadogJavaAgent(update.value),
+    datadogApmEnabled                              := true,
     datadogServiceName                             := name.value,
     datadogAgentTraceUrl                           := TraceAgentUrl.defaultUnixSocketUrl,
     datadogEnableDebug                             := false,
@@ -63,6 +68,7 @@ object DatadogAPM extends AutoPlugin {
     libraryDependencies += "com.datadoghq"          % "dd-java-agent" % datadogApmVersion.value % DatadogConfig,
     Universal / mappings += datadogJavaAgent.value -> "datadog/dd-java-agent.jar",
     bashScriptExtraDefines += """addJava "-javaagent:${app_home}/../datadog/dd-java-agent.jar"""",
+    bashScriptExtraDefines += s"""addJava "-Ddd.trace.enabled=${datadogApmEnabled.value}"""",
     bashScriptExtraDefines += s"""addJava "-Ddd.service.name=${datadogServiceName.value}"""",
     bashScriptExtraDefines += {
       datadogAgentTraceUrl.value match {

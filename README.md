@@ -44,6 +44,18 @@ To use a specific Datadog Java APM Agent version, add the following to your `bui
 datadogApmVersion := "0.98.1"
 ```
 
+#### `datadogApmEnabled`
+
+You can easily disable the Datadog APM by settings this setting to `false`.
+Note that if you have the `DD_TRACE_ENABLED` environment variable set, it'll take precedence over this setting.
+See https://docs.datadoghq.com/tracing/trace_collection/library_config/java/
+
+Default value: `true`
+
+```scala
+datadogApmEnabled := true
+```
+
 #### `datadogServiceName`
 
 By default, the agent will use the sbt project `name` value as `service.name`. 
