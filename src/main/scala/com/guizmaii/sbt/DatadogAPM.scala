@@ -27,17 +27,22 @@ object DatadogAPM extends AutoPlugin {
   }
 
   object autoImport {
-    lazy val datadogApmVersion    = settingKey[String]("Datadog APM agent version")
-    lazy val datadogJavaAgent     = taskKey[File]("Datadog agent jar location")
-    lazy val datadogServiceName   = taskKey[String](
+    lazy val datadogApmVersion = settingKey[String]("Datadog APM agent version")
+
+    lazy val datadogJavaAgent = taskKey[File]("Datadog agent jar location")
+
+    lazy val datadogServiceName = taskKey[String](
       "The name of a set of processes that do the same job. Used for grouping stats for your application. Default value is the sbt project name"
     )
+
     lazy val datadogAgentTraceUrl = taskKey[TraceAgentUrl](
       "Configures how the APM communicates with the Datadog agent. By default it uses the default Datadog Unix Socket `/var/run/datadog/apm.socket`. More information, see https://docs.datadoghq.com/agent/kubernetes/apm/?tab=ipport#configure-your-application-pods-in-order-to-communicate-with-the-datadog-agent"
     )
-    lazy val datadogEnableDebug   =
+
+    lazy val datadogEnableDebug =
       taskKey[Boolean]("To return debug level application logs, enable debug mode. Default value: false")
-    lazy val datadogGlobalTags    = taskKey[Map[String, String]](
+
+    lazy val datadogGlobalTags = taskKey[Map[String, String]](
       "A list of default tags to be added to every span and every JMX metric. Default value: Empty List"
     )
   }
@@ -65,10 +70,10 @@ object DatadogAPM extends AutoPlugin {
         case TraceAgentUrl.TraceAgentUnixSocketUrl(socket) => s"""addJava "-Ddd.trace.agent.url=unix://$socket""""
       }
     },
-    bashScriptExtraDefines += {
+    bashScriptExtraDefines ++= {
       val debugEnabled = datadogEnableDebug.value
-      if (debugEnabled) s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug""""
-      else """echo "Datadog debug mode disabled""""
+      if (debugEnabled) Seq(s"""addJava "-Ddatadog.slf4j.simpleLogger.defaultLogLevel=debug"""")
+      else Seq.empty
     },
     bashScriptExtraDefines ++= {
       val globalTags = datadogGlobalTags.value
