@@ -67,11 +67,14 @@ To use another value, add the following to your `build.sbt` file:
 datadogAgentHost := "127.0.0.1"
 ```
 
-You can use your **host** (where you code run) environment variables in the value:  
+You can use a **host** environment variables in the value:  
 
 ```scala
 datadogAgentHost := "${MY_DD_HOST_IP}"
 ```
+
+This variable will be evaluated in the context of your running code!
+
 
 #### `datadogAgentPort`
 
@@ -83,11 +86,13 @@ To use another value, add the following to your `build.sbt` file:
 datadogAgentPort := "9999"
 ```
 
-You can use your **host** (where you code run) environment variables in the value:  
+You can use a **port** environment variable in the value:  
 
 ```scala
 datadogAgentPort := "${MY_DD_PORT}"
 ```
+
+This variable will be evaluated in the context of your running code!
 
 #### `datadogEnableNetty`
 
