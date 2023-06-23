@@ -1,5 +1,5 @@
 name         := "sbt-datadog"
-scalaVersion := "2.12.18"
+scalaVersion := "2.13.11"
 sbtPlugin    := true
 ThisBuild / pushRemoteCacheTo := Some(
   MavenCache("local-cache", baseDirectory.value / sys.env.getOrElse("CACHE_PATH", "sbt-cache"))
