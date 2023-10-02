@@ -1,0 +1,1 @@
+../scala-common/scala/PublishSettings.scala

@@ -1,1 +1,1 @@
-../scala-common/ReleaseSettings.scala
+../scala-common/scala/ReleaseSettings.scala

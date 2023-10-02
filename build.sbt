@@ -1,7 +1,5 @@
 name         := "sbt-datadog"
 scalaVersion := "2.12.18"
 sbtPlugin    := true
-ThisBuild / pushRemoteCacheTo := Some(
-  MavenCache("local-cache", baseDirectory.value / sys.env.getOrElse("CACHE_PATH", "sbt-cache"))
-)
+inThisBuild(PublishSettings.localCacheSettings)
 addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.16" % "provided")
