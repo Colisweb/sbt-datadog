@@ -1,5 +1,8 @@
 # sbt-datadog
 
+⚠️ THIS VERSION OF sbt-datadog ISN'T MAINTAINED ANYMORE ⚠️
+⚠️ Please use https://github.com/guizmaii/sbt-datadog instead ⚠️
+
 [ ![Download](https://api.bintray.com/packages/colisweb/sbt-plugins/sbt-datadog/images/download.svg) ](https://bintray.com/colisweb/sbt-plugins/sbt-datadog/_latestVersion)
 
 This project is highly inspired by the fantastic [sbt-newrelic](https://github.com/gilt/sbt-newrelic) project.
